@@ -1,4 +1,5 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow, ipcMain, Menu } = require('electron')
+const isDev = require('electron-is-dev');
 const Serial = require('comportc').default
 const path = require('path')
 
@@ -44,7 +45,7 @@ function createWindow() {
   const win = new BrowserWindow({
     minWidth: 800,
     minHeight: 700,
-    icon: path.join('image','icon512.png'),
+    icon: path.join(__dirname, '../image','icon.ico'),
     webPreferences: {
       devTools: true,
       nodeIntegrationInWorker: true,
@@ -52,12 +53,18 @@ function createWindow() {
       contextIsolation: false
     },
     alwaysOnTop: true,
+    autoHideMenuBar: true
   })
 
-  const fileName = `file://${path.join(__dirname, '../build/index.html')}`
-  console.log(fileName);
-  win.loadFile(fileName);
-}
+
+  win.loadURL(isDev
+    ? 'http://localhost:3000'
+    : `file://${path.join(__dirname, '../build/index.html')}`);
+
+    win.setMenuBarVisibility(false);
+    win.setMenu(null);
+    Menu.setApplicationMenu(null);
+  }
 
 app.whenReady().then(() => {
   createWindow()

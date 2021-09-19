@@ -1,14 +1,15 @@
 {
   "name": "comportc",
-  "version": "1.0.0",
-  "description": "",
-  "main": "./public/main.js",
+  "version": "1.2.2",
+  "description": "Easy serial communication",
+  "main": "./public/electron.js",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.8.3",
     "comportc": "^1.1.6",
+    "electron-is-dev": "^2.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
@@ -19,16 +20,16 @@
   },
   "devDependencies": {
     "@types/styled-components": "^5.1.9",
-    "electron-prebuilt-compile": "12.0.17"
+    "electron": "^13.2.3",
+    "electron-builder": "^22.11.7",
+    "electron-packager": "^15.4.0"
   },
   "scripts": {
     "startE": "electron --trave-warnings . ",
     "startR": "react-scripts start",
-    "build": "react-scripts build",
-    "eject": "react-scripts eject",
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make"
+    "buildR": "react-scripts build",
+    "buildE": "npm run build && node_modules/.bin/electron-builder",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -50,5 +51,17 @@
   },
   "keywords": [],
   "author": "Deivid Reinke S.",
-  "license": "ISC"
+  "license": "ISC",
+  "homepage": "./",
+  "build": {
+    "copyright": "Copyright © 2021 Deivid Reinke Schutz",
+    "win": {
+      "target": "NSIS",
+      "icon": "image/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
 }
